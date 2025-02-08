@@ -1,22 +1,83 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-// Desafio Super Trunfo - Países
-// Tema 1 - Cadastro das Cartas
-// Este código inicial serve como base para o desenvolvimento do sistema de cadastro de cartas de cidades.
-// Siga os comentários para implementar cada parte do desafio.
-//Teste larissa
+#define MAX_CIDADES 32 // 8 estados * 4 cidades cada
+
+typedef struct {
+    char codigo[4]; // Exemplo: "A01"
+    int populacao;
+    float area;
+    float pib;
+    int pontos_turisticos;
+} Cidade;
+
+void cadastrar_cidades(Cidade cidades[], int *contador) {
+    if (*contador >= MAX_CIDADES) {
+        printf("Limite de cidades atingido!\n");
+        return;
+    }
+    
+    printf("Digite o código da cidade (Ex: A01, B02): ");
+    scanf("%s", cidades[*contador].codigo);
+
+    printf("Digite a população da cidade: ");
+    scanf("%d", &cidades[*contador].populacao);
+
+    printf("Digite a área da cidade em km²: ");
+    scanf("%f", &cidades[*contador].area);
+
+    printf("Digite o PIB da cidade em bilhões de dólares: ");
+    scanf("%f", &cidades[*contador].pib);
+
+    printf("Digite o número de pontos turísticos: ");
+    scanf("%d", &cidades[*contador].pontos_turisticos);
+
+    printf("Cidade cadastrada com sucesso!\n\n");
+    
+    (*contador)++;
+}
+
+void exibir_cidades(Cidade cidades[], int contador) {
+    printf("\n📌 Lista de Cidades Cadastradas:\n");
+    printf("---------------------------------\n");
+    for (int i = 0; i < contador; i++) {
+        printf("Código: %s\n", cidades[i].codigo);
+        printf("População: %d\n", cidades[i].populacao);
+        printf("Área: %.2f km²\n", cidades[i].area);
+        printf("PIB: %.2f bilhões\n", cidades[i].pib);
+        printf("Pontos Turísticos: %d\n", cidades[i].pontos_turisticos);
+        printf("---------------------------------\n");
+    }
+}
 
 int main() {
-    // Sugestão: Defina variáveis separadas para cada atributo da cidade.
-    // Exemplos de atributos: código da cidade, nome, população, área, PIB, número de pontos turísticos.
-    
-    // Cadastro das Cartas:
-    // Sugestão: Utilize a função scanf para capturar as entradas do usuário para cada atributo.
-    // Solicite ao usuário que insira as informações de cada cidade, como o código, nome, população, área, etc.
-    
-    // Exibição dos Dados das Cartas:
-    // Sugestão: Utilize a função printf para exibir as informações das cartas cadastradas de forma clara e organizada.
-    // Exiba os valores inseridos para cada atributo da cidade, um por linha.
+    Cidade cidades[MAX_CIDADES];
+    int contador = 0;
+    int opcao;
+
+    do {
+        printf("\n🃏 Super Trunfo - Cadastro de Cidades 🃏\n");
+        printf("1 - Cadastrar Cidade\n");
+        printf("2 - Exibir Cidades Cadastradas\n");
+        printf("0 - Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                cadastrar_cidades(cidades, &contador);
+                break;
+            case 2:
+                exibir_cidades(cidades, contador);
+                break;
+            case 0:
+                printf("Saindo do sistema...\n");
+                break;
+            default:
+                printf("Opção inválida!\n");
+        }
+    } while (opcao != 0);
 
     return 0;
 }
